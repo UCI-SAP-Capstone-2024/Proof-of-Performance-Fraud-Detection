@@ -23,6 +23,6 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1.4.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_repo_path: "https://github.com/robschu/uci-sap-capstone-template.git"
+          source_repo_path: "robschu/uci-sap-capstone-template.git"
           upstream_branch: "main"
           pr_labels: template-sync
