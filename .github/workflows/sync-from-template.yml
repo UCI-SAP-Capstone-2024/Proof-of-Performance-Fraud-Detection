@@ -11,8 +11,35 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Template Sync
-        uses: AndreasAugustin/actions-template-sync@v1
+        uses: AndreasAugustin/actions-template-sync@v1.4.0
         with:
-          source_repo: "https://github.com/robschu/uci-sap-capstone-template.git"
+          source_repo_path: "https://github.com/robschu/uci-sap-capstone-template.git"
           source_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+    # cronjob trigger
+  schedule:
+  - cron:  "0 0 1 * *"
+  # manual trigger
+  workflow_dispatch:
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v1.4.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_repo_path: "https://github.com/robschu/uci-sap-capstone-template.git"
+          upstream_branch: "main"
+          pr_labels: template-sync
