@@ -1,23 +1,6 @@
 name: Sync with template
 
 on:
-  push:
-    branches:
-      - main
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Template Sync
-        uses: AndreasAugustin/actions-template-sync@v1.4.0
-        with:
-          source_repo_path: "https://github.com/robschu/uci-sap-capstone-template.git"
-          source_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-on:
     # cronjob trigger
   schedule:
   - cron:  "0 0 1 * *"
@@ -40,6 +23,6 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1.4.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_repo_path: "https://github.com/robschu/uci-sap-capstone-template.git"
+          source_repo_path: "robschu/uci-sap-capstone-template.git"
           upstream_branch: "main"
           pr_labels: template-sync
